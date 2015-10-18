@@ -13,11 +13,10 @@ angular.module('quizApp.settings')
     '$window',
     '$location',
     '$log',
-    '$cordovaInAppBrowser',
     '$http',
     '$ionicModal',
     'SettingsSvc',
-    function($scope, $rootScope, $ionicHistory, $state, $stateParams, $ionicLoading, $ionicPopup, $window, $location, $log, $cordovaInAppBrowser, $http, $ionicModal, SettingsSvc) {
+    function($scope, $rootScope, $ionicHistory, $state, $stateParams, $ionicLoading, $ionicPopup, $window, $location, $log, $http, $ionicModal, SettingsSvc) {
         var ctrl = this;
 
         ctrl.saveSettings = function() {

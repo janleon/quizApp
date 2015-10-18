@@ -2,8 +2,14 @@
 
 angular.module('quizApp.settings')
 
-.factory("SettingsSvc", function() {
-    var service = {};
+.factory("SettingsSvc", [
+	function() {
+	    var service = {};
 
-    return service;
-});
+	    service.getApiUrl = function(){
+	    	return "";
+	    }
+
+	    return service;
+	}
+]);

@@ -8,14 +8,18 @@ angular.module('quizApp.quiz')
     '$stateParams',
     '$ionicLoading',
     '$ionicModal',
-    '$cordovaCamera',
     '$log',
     '$ionicPopup',
     'QuizSvc',
-    function($scope, $state, $stateParams, $ionicLoading, $ionicModal, $cordovaCamera, $log, $ionicPopup, QuizSvc) {
-        var ctrl = this;
+    function($scope, $state, $stateParams, $ionicLoading, $ionicModal, $log, $ionicPopup, QuizSvc) {
+        var ctrl = {
+            error: false,
+            errorMessage: "",
+            questions: []
+        };
 
-        ctrl.getQuizes = function(showLoading) {
+        ctrl.getQuiz = function(showLoading) {
+            ctrl.error = false;
 
             if (showLoading) {
                 $ionicLoading.show({
@@ -24,18 +28,15 @@ angular.module('quizApp.quiz')
                 });
             }
 
-            QuizSvc.getQuizes()
+            QuizSvc.getQuiz()
                 .then(function(data) {
-                    var quizes = data.quizes;
-
-                    ctrl.quizes = quizes;
-
-                    if (showLoading) {
-                        $ionicLoading.hide();
-                    }
-                    $scope.$broadcast('scroll.refreshComplete');
-                }, function(error) {
+                    ctrl.questions = data.questions;
+                })
+                .catch(function(error) {
                     ctrl.error = true;
+                    ctrl.errorMessage = error;
+                })
+                .finally(function() {
                     if (showLoading) {
                         $ionicLoading.hide();
                     }
@@ -43,6 +44,12 @@ angular.module('quizApp.quiz')
                 });
         }
 
-        ctrl.getQuizes(true);
+        function initialize() {
+            ctrl.getQuiz(true);
+        }
+
+        initialize();
+
+        return ctrl;
     }
 ]);
