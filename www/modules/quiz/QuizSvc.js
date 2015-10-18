@@ -20,7 +20,17 @@ angular.module('quizApp.quiz')
 
 			deferred.resolve({ 
 				questions:[
-					{ question: "Question 1" },
+					{
+						questionId: 1,
+						question: "Hva heter hovedstaden i Norge?", 
+						image: "img/ionic.png",
+						answers: [
+							{ answerId: 1, answer: "Oslo" },
+							{ answerId: 2, answer: "Bergen" },
+							{ answerId: 3, answer: "Stavanger" },
+							{ answerId: 4, answer: "Haugesund" }
+						]
+					},
 					{ question: "Question 2" },
 					{ question: "Question 3" },
 					{ question: "Question 4" },

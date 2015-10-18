@@ -15,11 +15,17 @@ angular.module('quizApp.quiz')
         var ctrl = {
             error: false,
             errorMessage: "",
-            questions: []
+            questions: [],
+            currentQuestion: null
         };
 
-        ctrl.getQuiz = function(showLoading) {
+        function resetErrorMessage(){
             ctrl.error = false;
+            ctrl.errorMessage = "";
+        }
+
+        ctrl.getQuiz = function(showLoading) {
+            resetErrorMessage();
 
             if (showLoading) {
                 $ionicLoading.show({
@@ -31,6 +37,7 @@ angular.module('quizApp.quiz')
             QuizSvc.getQuiz()
                 .then(function(data) {
                     ctrl.questions = data.questions;
+                    ctrl.currentQuestion = ctrl.questions[0];
                 })
                 .catch(function(error) {
                     ctrl.error = true;

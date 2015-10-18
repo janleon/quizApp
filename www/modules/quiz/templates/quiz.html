@@ -1,16 +1,27 @@
 <ion-view view-title="Quiz">
-    <ion-content>
-        <ion-refresher on-refresh="quizCtrl.getQuiz()"></ion-refresher>
-
+	<ion-content>
 		<div class="padding" ng-show="quizCtrl.error">{{quizCtrl.errorMessage}}</div>
 
-        <ion-list>
-            <div collection-repeat="item in quizCtrl.questions" divider-collection-repeat>
-                <ion-item class="item-icon-right" style="height: 100%;" href="#/app/agreement/{{item.AgreementID}}">
-                    <h2>{{item.question}}</h2>
-                </ion-item>
-            </div>
-        </ion-list>
+		<div class="card">
+				<div class="item item-text-wrap">
+				<h4>{{quizCtrl.currentQuestion.question}}</h4>
+			</div>
 
-    </ion-content>
+			<div class="item item-image">
+    			<img style="width:250px;height:250px;padding:10px;" ng-src="{{quizCtrl.currentQuestion.image}}">
+  			</div>
+
+  			<div>
+  				<div class="button-bar">
+					<a class="button button-light" style="padding:15px;">{{quizCtrl.currentQuestion.answers[0].answer}}</a>
+					<a class="button button-light" style="padding:15px;">{{quizCtrl.currentQuestion.answers[1].answer}}</a>
+				</div>
+				<div class="button-bar">
+					<a class="button button-light" style="padding:15px;">{{quizCtrl.currentQuestion.answers[2].answer}}</a>
+					<a class="button button-light" style="padding:15px;">{{quizCtrl.currentQuestion.answers[3].answer}}</a>
+				</div>			
+  			</div>
+		</div>
+
+	</ion-content>
 </ion-view>
