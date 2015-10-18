@@ -22,13 +22,15 @@ angular.module('quizApp.quiz')
 				questions:[
 					{
 						questionId: 1,
-						question: "Hva heter hovedstaden i Norge?", 
+						question: "Hva heter hovedstaden i Norge?",
+						duration: 5000,
+						category: "Hovedsteder",
 						image: "img/ionic.png",
-						answers: [
-							{ answerId: 1, answer: "Oslo" },
-							{ answerId: 2, answer: "Bergen" },
-							{ answerId: 3, answer: "Stavanger" },
-							{ answerId: 4, answer: "Haugesund" }
+						alternatives: [
+							{ alternative: 1, alternative: "Oslo" },
+							{ alternativeId: 2, alternative: "Bergen" },
+							{ alternativeId: 3, alternative: "Stavanger" },
+							{ alternativeId: 4, alternative: "Haugesund" }
 						]
 					},
 					{ question: "Question 2" },
