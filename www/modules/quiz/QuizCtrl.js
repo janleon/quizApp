@@ -10,8 +10,9 @@ angular.module('quizApp.quiz')
     '$ionicModal',
     '$log',
     '$ionicPopup',
+    'SystemSvc',
     'QuizSvc',
-    function($scope, $state, $stateParams, $ionicLoading, $ionicModal, $log, $ionicPopup, QuizSvc) {
+    function($scope, $state, $stateParams, $ionicLoading, $ionicModal, $log, $ionicPopup, SystemSvc, QuizSvc) {
         var ctrl = {
             error: false,
             errorMessage: "",
@@ -34,7 +35,7 @@ angular.module('quizApp.quiz')
                 });
             }
 
-            QuizSvc.getQuiz()
+            QuizSvc.getQuiz($stateParams.quizId)
                 .then(function(data) {
                     ctrl.questions = data.questions;
                     ctrl.currentQuestion = ctrl.questions[0];
@@ -47,10 +48,44 @@ angular.module('quizApp.quiz')
                     if (showLoading) {
                         $ionicLoading.hide();
                     }
-                    $scope.$broadcast('scroll.refreshComplete');
                 });
         }
 
+        ctrl.answerQuestion = function(alternative){
+            if(alternative.correct){
+                $ionicLoading.show({template: '<div>Rett svar</div>'});
+                playSuccessSound();
+                setTimeout(function(){
+                    $ionicLoading.hide();
+                    moveToNextQuestion();        
+                }, 2000);
+            } else {
+                $ionicLoading.show({template: '<div>Feil svar. Prøv igjen.</div>'});
+                playErrorSound();
+                setTimeout(function(){
+                    $ionicLoading.hide();     
+                }, 2000);
+            }
+        }
+
+        function moveToNextQuestion(){
+            var index  = _.findIndex(ctrl.questions, function(item) { return item.id === ctrl.currentQuestion.id });
+
+            if(ctrl.questions.length > index+1){
+                ctrl.currentQuestion = ctrl.questions[index+1];   
+            } else {
+                ctrl.currentQuestion = ctrl.questions[0];
+            }
+        }
+
+
+        function playSuccessSound(){
+            SystemSvc.playSound("/sounds/success.mp3");
+        }
+        function playErrorSound(){
+            SystemSvc.playSound("/sounds/error.mp3");
+        }
+        
         function initialize() {
             ctrl.getQuiz(true);
         }

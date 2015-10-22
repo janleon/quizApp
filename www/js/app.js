@@ -1,10 +1,12 @@
 angular.module('quizApp.settings', []);
+angular.module('quizApp.system', []);
 angular.module('quizApp.quiz', []);
 
 angular.module('quizApp', [
     'ionic',
     'ngCordova',
     'quizApp.settings',
+    'quizApp.system',
     'quizApp.quiz'
 ])
 
@@ -32,8 +34,17 @@ angular.module('quizApp', [
             controller: 'AppCtrl'
         })
 
+    .state('app.quizzes', {
+        url: "/quizzes",
+        views: {
+            'menuContent': {
+                templateUrl: "modules/quiz/templates/quizzes.html",
+                controller: 'QuizzesCtrl as quizzesCtrl'
+            }
+        }
+    })
     .state('app.quiz', {
-        url: "/quiz",
+        url: "/quiz/:quizId",
         views: {
             'menuContent': {
                 templateUrl: "modules/quiz/templates/quiz.html",
@@ -41,7 +52,7 @@ angular.module('quizApp', [
             }
         }
     })
-
+    
     .state('app.settings', {
         url: "/settings",
         views: {
@@ -52,5 +63,5 @@ angular.module('quizApp', [
         }
     });
 
-    $urlRouterProvider.otherwise('/app/quiz');
+    $urlRouterProvider.otherwise('/app/quizzes');
 });
